@@ -10,3 +10,4 @@ def mw(words):
 
 c = print(mw(["aba","ba","ifi","010101","mm"]))
 print("Number of words having the first and last letter same",c)
+
