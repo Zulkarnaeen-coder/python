@@ -8,3 +8,4 @@ for key in d1:
         result = result + 1
 
 print(f"Frequency == {result}")
+exit()
