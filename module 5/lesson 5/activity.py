@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 
 class abcd(ABC):
     def print(self,x):
-        print(f"The value of x is {self.x}")
+        print(f"The value of x is {x}")
 
     @abstractmethod
-    def test(self):
+    def task(self):
         print('This is an abstraction method')
 
 
