@@ -14,3 +14,8 @@ class rev:
 string = input("Please input a str to reverse the str>>>")
 ob = rev(string)
 print(ob.reversed())
+
+
+
+for i in range(90):
+    

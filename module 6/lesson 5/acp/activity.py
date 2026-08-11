@@ -90,7 +90,7 @@ def enemy(x, y, i):
         win.blit(enemyimg[i], (x, y))
     else:
         
-        pygame.draw.rect(win, (255, 42, 125), (x, y, spr_size, spr_size))
+        pygame.draw.rect(win, (255, 42, 12), (x, y, spr_size, spr_size))
 
 
 def fire_bullet(x, y):
