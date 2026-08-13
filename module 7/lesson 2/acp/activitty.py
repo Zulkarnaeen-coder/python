@@ -43,11 +43,11 @@ conf_btn = Button(win, text = "Set ATM PIN", command = conf_pin, bg = "red", fg 
 
 dfm.place(x = 20, y = 10)
 lbn.place(x = 15, y = 25)
-lbp.place(x = 15, y = 65)
-inpn.place(x = 150, y = 25)
-inpp.place(x = 150, y = 65)
-msg_box.place(x = 20, y = 200)
-key_frame.place(x = 20, y = 280)
-conf_btn.place(x = 150, y = 450)
+lbp.place(x = 15, y = 85)
+inpn.place(x = 155, y = 25)
+inpp.place(x = 155, y = 85)
+msg_box.place(x = 25, y = 410)
+key_frame.place(x = 85, y = 180)
+conf_btn.place(x = 145, y = 380)
 
 win.mainloop()
