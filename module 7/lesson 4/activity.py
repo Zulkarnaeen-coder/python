@@ -16,7 +16,6 @@ def open():
 
     with open(fp,"r") as file:
         text = file.read()
-        textedit.delete(1.0,END)
         textedit.insert(1.0,text)
 
     win.title(f"Codingal's text editor - {fp}")

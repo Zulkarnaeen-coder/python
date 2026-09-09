@@ -1,74 +1,53 @@
-# Letter Writing Application
-
-# Import the required packages
 from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
-# PART 1: Set up the main window
-window = Tk()
-window.title("Letter Writing Application")
-window.geometry("600x500")
-window.rowconfigure(0, minsize=500, weight=1)
-window.columnconfigure(1, minsize=500, weight=1)
+win = Tk()
+win.geometry("500x600")
+win.title("Codingal's text editor")
+
+win.rowconfigure(0, weight=1)
+win.columnconfigure(0, weight=1)
 
 
-# PART 2: Open an existing letter
-def open_letter():
-    """Open a saved letter for editing."""
-    filepath = askopenfilename(
-        filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")]
+def openf():
+    fp = askopenfilename(
+        title="Open file", filetypes=(("Text files", "*.txt"), ("All files", "*.*"))
     )
-
-    # Stop if no file is selected
-    if not filepath:
+    if not fp:
         return
+    textedit.delete(1.0, END)
 
-    # Clear the editor before displaying the selected letter
-    txt_edit.delete(1.0, END)
+    with open(fp, "r") as file:
+        text = file.read()
+        textedit.insert(1.0, text)
 
-    # Read the file and show its contents in the editor
-    with open(filepath, "r") as input_file:
-        letter_text = input_file.read()
-        txt_edit.insert(END, letter_text)
-
-    # Show the opened file path in the window title
-    window.title(f"Letter Writing Application - {filepath}")
+    win.title(f"Codingal's text editor - {fp}")
 
 
-# PART 3: Save the current letter
-def save_letter():
-    """Save the letter as a text file."""
-    filepath = asksaveasfilename(
+def savef():
+    fp = asksaveasfilename(
+        title="Save file",
         defaultextension=".txt",
-        filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")],
+        filetypes=(("Text files", "*.txt"), ("All files", "*.*")),
     )
-
-    # Stop if no save location is selected
-    if not filepath:
+    if not fp:
         return
-
-    # Get the editor text and write it to the selected file
-    with open(filepath, "w") as output_file:
-        letter_text = txt_edit.get(1.0, END)
-        output_file.write(letter_text)
-
-    # Show the saved file path in the window title
-    window.title(f"Letter Writing Application - {filepath}")
+    with open(fp, "w") as otfile:
+        text = textedit.get(1.0, END)
+        otfile.write(text)
+    win.title(f"Codingal's text editor - {fp}")
 
 
-# PART 4: Create the application widgets
-txt_edit = Text(window)
-fr_buttons = Frame(window, relief=RAISED, bd=2)
+textedit = Text(win)
+textedit.grid(row=0, column=1, sticky="nsew")
+fr_btn = Frame(win, relief=RAISED, bd=2)
+btn_open = Button(fr_btn, text="Open", command=openf)
+btn_save = Button(fr_btn, text="Save As", command=savef)
 
-# Pass functions as button commands without parentheses
-btn_open = Button(fr_buttons, text="Open Letter", command=open_letter)
-btn_save = Button(fr_buttons, text="Save Letter As...", command=save_letter)
-
-# PART 5: Arrange the widgets using the grid layout
 btn_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
 btn_save.grid(row=1, column=0, sticky="ew", padx=5)
-fr_buttons.grid(row=0, column=0, sticky="ns")
-txt_edit.grid(row=0, column=1, sticky="nsew")
 
-# Start the Tkinter event loop
-window.mainloop()
+fr_btn.grid(row=0, column=0, sticky="ns")
+
+
+win.mainloop()
