@@ -1,26 +1,25 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from PIL import Image, ImageTk  # Requires: pip install pillow
+  # Requires: pip install pillow
 
-class RestaurantOrderManagement:
+class Stationary:
     def __init__(self, root):
         self.root = root
-        self.root.title("Restaurant Management App")
+        self.root.title("Stationary Management App")
         self.root.geometry("800x600")
 
         # Menu items and prices in USD
         self.menu_items = {
-            "FRIES MEAL": 2.0,
-            "LUNCH MEAL": 2.0,
-            "BURGER MEAL": 3.0,
-            "PIZZA MEAL": 4.0,
-            "CHEESE BURGER": 2.5,
-            "DRINKS": 1.0
+            "RUBBER": 0.2,
+            "PENCIL": 0.1,
+            "BOOK": 1.0,
+            "NOTE BOOK": 0.5,
+            "RULLER": 0.5,
+            "BALL PEN": 0.1
         }
 
-        self.exchange_rate =100# USD to INR
+        self.exchange_rate = 100  # USD to INR
 
-        # Set up background image (Optional - handles missing images gracefully)
         
 
         # Create a frame with transparency/style over the root window
@@ -30,7 +29,7 @@ class RestaurantOrderManagement:
         # Heading label
         ttk.Label(
             frame,
-            text="Restaurant Order Management",
+            text="Stationary Order Management",
             font=("Arial", 20, "bold")
         ).grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 
@@ -52,7 +51,7 @@ class RestaurantOrderManagement:
             quantity_entry.grid(row=i, column=1, padx=10, pady=5)
             self.menu_quantities[item] = quantity_entry
 
-        # Currency selection setup
+        
         self.currency_var = tk.StringVar(value="USD")
         
         ttk.Label(
@@ -95,36 +94,26 @@ class RestaurantOrderManagement:
         # Initialize correct label prices on load
         self.update_menu_prices()
 
-    def setup_background(self, image_path):
-        """Loads and scales a background image onto a Canvas widget."""
-        try:
-            bg_image = Image.open(image_path)
-            bg_image = bg_image.resize((800, 600), Image.Resampling.LANCZOS)
-            self.bg_photo = ImageTk.PhotoImage(bg_image)
 
-            bg_label = tk.Label(self.root, image=self.bg_photo)
-            bg_label.place(x=0, y=0, relwidth=1, relheight=1)
-        except FileNotFoundError:
-            # Silently fall back to default background if image is not found
-            pass
 
     def update_menu_prices(self, *args):
         """Updates display labels to match current selected currency."""
         currency = self.currency_var.get()
-        symbol = "₹" if currency == "INR" else "$"
-        rate = self.exchange_rate if currency == "INR" else 1.0
+        symbol = "৳" if currency == "BDT" else "$"
+        rate = self.exchange_rate if currency == "BDT" else 1.0  
 
         for item, label in self.menu_labels.items():
             price = self.menu_items[item] * rate
             label.config(text=f"{item} ({symbol}{price:.2f}):")
+
 
     def place_order(self):
         """Calculates total and shows order receipt modal."""
         total_cost = 0.0
         order_summary = "Order Summary:\n" + "-" * 25 + "\n"
         currency = self.currency_var.get()
-        symbol = "₹" if currency == "INR" else "$"
-        rate = self.exchange_rate if currency == "INR" else 1.0
+        symbol = "৳" if currency == "BDT" else "$"
+        rate = self.exchange_rate if currency == "BDT" else 1.0
 
         for item, entry in self.menu_quantities.items():
             val = entry.get().strip()
@@ -145,5 +134,5 @@ class RestaurantOrderManagement:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = RestaurantOrderManagement(root)
+    app = Stationary(root)
     root.mainloop()
