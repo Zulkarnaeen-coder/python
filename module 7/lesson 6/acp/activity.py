@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-  # Requires: pip install pillow
 
 class Stationary:
     def __init__(self, root):
@@ -8,7 +7,7 @@ class Stationary:
         self.root.title("Stationary Management App")
         self.root.geometry("800x600")
 
-        # Menu items and prices in USD
+        
         self.menu_items = {
             "RUBBER": 0.2,
             "PENCIL": 0.1,
@@ -18,15 +17,15 @@ class Stationary:
             "BALL PEN": 0.1
         }
 
-        self.exchange_rate = 100  # USD to INR
+        self.exchange_rate = 100 
 
         
 
-        # Create a frame with transparency/style over the root window
+        
         frame = ttk.Frame(self.root, padding=20)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-        # Heading label
+        
         ttk.Label(
             frame,
             text="Stationary Order Management",
@@ -36,7 +35,7 @@ class Stationary:
         self.menu_labels = {}
         self.menu_quantities = {}
 
-        # Create labels and entry widgets for each menu item
+        
         for i, (item, price) in enumerate(self.menu_items.items(), start=1):
             label = ttk.Label(
                 frame,
@@ -74,10 +73,10 @@ class Stationary:
             pady=5
         )
         
-        # Modern Tkinter variable tracking
+
         self.currency_var.trace_add("write", self.update_menu_prices)
 
-        # Button to place order
+    
         order_button = ttk.Button(
             frame,
             text="Place Order",
@@ -91,7 +90,7 @@ class Stationary:
             pady=15
         )
 
-        # Initialize correct label prices on load
+        
         self.update_menu_prices()
 
 
