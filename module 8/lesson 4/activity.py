@@ -1,21 +1,45 @@
+import seaborn as sns
 import matplotlib.pyplot as plt
 
-days = ["SAT","SUN","MON","TUES","WED","THURS","FRI"]
-score = [68,97,45,78,86,85,100]
+df = sns.load_dataset('penguins')
+df =df.dropna()
+print(df.head())
+print(df.info())
+print(df.describe())
 
-plt.plot(days,score)
+print('Species:', df['species'].unique())
+print('Islands:', df['island'].unique())
+
+
+sns.histplot(data=df, x="body_mass_g", bins=20, color="green")
+plt.title("Distribution of Penguin Body Mass")
+plt.xlabel("Body Mass (grams)")
+plt.ylabel("Count")
 plt.show()
 
-plt.plot(days,score,color="red",marker="o",linestyle = "dashed",linewidth = 2)
-plt.title("My Quiz traker")
-plt.ylabel("Scores")
-plt.xlabel("Days")
-plt.ylim(0,100)
-plt.grid(True)
+
+# KDE only — one smooth curve per species
+sns.kdeplot(data=df, x="body_mass_g", hue="species", fill=True)
+plt.title("Distribution of Penguin Body Mass Species (KDE)")
+plt.xlabel("body mass  (gram)")
+plt.ylabel("Density")
+plt.show()
+# Histogram + KDE together — bars AND the fitted curve
+# sns.histplot(data=df, x="flipper_length_mm", kde=True, color="coral")
+# plt.title("Flipper Length — Histogram with KDE Curve")
+# plt.xlabel("Flipper Length (mm)")
+# plt.ylabel("Count")
+# plt.show()
+
+
+sns.scatterplot(data=df, x="flipper_length_mm", y="body_mass_g", hue="species")
+plt.title("Flipper Length vs Body Mass by Species")
+plt.xlabel("Flipper Length (mm)")
+plt.ylabel("Body Mass (grams)")
 plt.show()
 
-plt.bar(days,score,color = "orange")
-plt.ylabel("Score")
-plt.xlabel("Days")
-plt.ylim(0,100)
+crr = df.corr(numeric_only=True)
+print(crr)
+sns.heatmap(crr, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap of Penguin Dataset")
 plt.show()
