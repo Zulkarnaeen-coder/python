@@ -1,19 +1,37 @@
+import seaborn as sns
 import matplotlib.pyplot as plt
 
-saved = [200,215,490,300,100]
-weeks = ["1","2","3","4","5"]
-plt.plot(weeks,saved,color = 'green',marker = "o",linestyle= 'dashed',linewidth = 2)
-plt.xlabel('Weeks')
-plt.ylabel('Money')
-plt.title("Savings from week 1 to 5")
-plt.ylim(0,1000)
-plt.grid(True)
+df = sns.load_dataset("planets")
+df = df.dropna()
+print(df.head())
+print(df.info())
+print(df.describe())
+
+print("Method",df["method"].unique())
+print("Year",df["year"].unique())
+
+sns.histplot(data = df,x ="orbital_period",bins = 20,color = "red" )
+plt.title("Distribution of Orbital Period")
+plt.xlabel("Orbital Period (days)")
+plt.ylabel("Count")
+plt.show()
+
+sns.kdeplot(data = df,x = "orbital_period",hue = "method",fill = True)
+plt.title("Distribution of Orbital Period by Method (KDE)")
+plt.xlabel("Orbital Period (days)")
+plt.ylabel("Density")
 plt.show()
 
 
-plt.bar(weeks,saved,color = "blue")
-plt.xlabel("Weeks")
-plt.ylabel("Money")
-plt.title("Savings from week 1 to 5")
-plt.ylim(0,1000)
+sns.scatterplot(data = df,x = "orbital_period",y = "year",hue = "method")
+plt.title("Orbital Period vs Year by Method")
+plt.xlabel("Orbital Period (days)")
+plt.ylabel("Year")
+plt.show()
+
+
+crr = df.corr(numeric_only=True)
+print(crr)
+sns.heatmap(crr, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap of Planets Dataset")
 plt.show()
