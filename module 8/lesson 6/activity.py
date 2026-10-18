@@ -35,5 +35,5 @@ plt.show()
 sns.countplot(x = "mass",data = df,hue = "method")
 plt.show()
 
-sns.pairplot(df,x = "mass" hue = "method")
+sns.pairplot(df,x = "mass", hue = "method")
 plt.show()
